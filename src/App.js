@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Title from "./components/Title";
+import Main from "./components/Main";
+import Button from "./components/Button";
+import bulbOFF from "./images/bulbOFF.png";
+import bulbON from "./images/bulbON.png";
 
-function App() {
+export default function App() {
+  let [state, setState] = useState(true);
+
+  function turnOn() {
+    const image = document.querySelector(".image");
+
+    if (state) {
+      image.setAttribute("src", bulbON);
+      setState(() => (state = false));
+    } else {
+      image.setAttribute("src", bulbOFF);
+      setState(() => (state = true));
+    }
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <Title state={state} />
+      <Main />
+      <Button toggle={turnOn} />
     </div>
   );
 }
-
-export default App;
